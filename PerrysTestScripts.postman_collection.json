@@ -1,0 +1,1768 @@
+{
+	"info": {
+		"_postman_id": "1f18864d-4b8a-4aef-8c41-9b109480d461",
+		"name": "PerrysTestScripts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create user John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set('user1',\"John Doe\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"{{user1}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set('user2',\"Jane Doe\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"{{user2}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user Joe",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set('user3',\"Joe Bloggs\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"{{user3}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users & Set User Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Creating user variables\", function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        let resname = response[i].name;\r",
+							"        let resid = response[i].id;\r",
+							"\r",
+							"        var name = resname.replace(\" \",\"\")\r",
+							"        pm.collectionVariables.set(name+\"ID\",resid)\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Message From Jane to John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Sent Message from Jane to John\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are correct\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{from} = JSON.parse(pm.response.text())\r",
+							"    const{to} = JSON.parse(pm.response.text())\r",
+							"    console.log(\"FROMID \"+from.id)\r",
+							"    console.log(\"TOID \"+to.id)\r",
+							"\r",
+							"    pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"    pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Message is not empty\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{message} = JSON.parse(pm.response.text())\r",
+							"    //console.log(message)\r",
+							"    pm.expect(message).to.not.equal(\"\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": {\n        \"id\": \"{{JaneDoeID}}\"\n    },\n    \"to\": {\n        \"id\": \"{{JohnDoeID}}\"\n    },\n    \"message\": \"Hello {{user1}} from {{user2}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Message From John to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Sent Message from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are correct\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{from} = JSON.parse(pm.response.text())\r",
+							"    const{to} = JSON.parse(pm.response.text())\r",
+							"    console.log(\"FROMID \"+from.id)\r",
+							"    console.log(\"TOID \"+to.id)\r",
+							"\r",
+							"    pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"    pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Message is not empty\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{message} = JSON.parse(pm.response.text())\r",
+							"    //console.log(message)\r",
+							"    pm.expect(message).to.not.equal(\"\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": {\n        \"id\": \"{{JohnDoeID}}\"\n    },\n    \"to\": {\n        \"id\": \"{{JaneDoeID}}\"\n    },\n    \"message\": \"Hello {{user2}} from {{user1}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From John to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JohnDoeID}}&to={{JaneDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JohnDoeID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JaneDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User John",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete John Doe\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('JohnDoeID',\"\");\r",
+							"console.log(pm.collectionVariables.get('JohnDoeID'));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users/:userId",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "{{JohnDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users & Set User Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Creating user variables\", function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        let resname = response[i].name;\r",
+							"        let resid = response[i].id;\r",
+							"\r",
+							"        var name = resname.replace(\" \",\"\")\r",
+							"        pm.collectionVariables.set(name+\"ID\",resid)\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From John to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JohnDoeID}}&to={{JaneDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JohnDoeID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JaneDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Message From John(BlankID) to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Sent Message from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are correct\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{from} = JSON.parse(pm.response.text())\r",
+							"    const{to} = JSON.parse(pm.response.text())\r",
+							"    console.log(\"FROMID \"+from.id)\r",
+							"    console.log(\"TOID \"+to.id)\r",
+							"\r",
+							"    pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"    pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Message is not empty\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{message} = JSON.parse(pm.response.text())\r",
+							"    //console.log(message)\r",
+							"    pm.expect(message).to.not.equal(\"\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": {\n        \"id\": \"{{JohnDoeID}}\"\n    },\n    \"to\": {\n        \"id\": \"{{JaneDoeID}}\"\n    },\n    \"message\": \"Hello {{user2}} from {{user1}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From Jane to John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JaneDoeID}}&to={{JohnDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JaneDoeID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JohnDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set('user1',\"John Doe\")"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"name\": \"{{user1}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users & Set User Variables",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"List users response code\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Creating user variables\", function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        let resname = response[i].name;\r",
+							"        let resid = response[i].id;\r",
+							"\r",
+							"        var name = resname.replace(\" \",\"\")\r",
+							"        pm.collectionVariables.set(name+\"ID\",resid)\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Message From Joe to John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Sent Message from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{id} = JSON.parse(pm.response.text())\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are correct\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{from} = JSON.parse(pm.response.text())\r",
+							"    const{to} = JSON.parse(pm.response.text())\r",
+							"    console.log(\"FROMID \"+from.id)\r",
+							"    console.log(\"TOID \"+to.id)\r",
+							"\r",
+							"    pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JoeBloggsID\"));\r",
+							"    pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Message is not empty\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{message} = JSON.parse(pm.response.text())\r",
+							"    //console.log(message)\r",
+							"    pm.expect(message).to.not.equal(\"\")\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": {\n        \"id\": \"{{JoeBloggsID}}\"\n    },\n    \"to\": {\n        \"id\": \"{{JohnDoeID}}\"\n    },\n    \"message\": \"Hello {{user1}} from {{user3}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From John to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JohnDoeID}}&to={{JaneDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JohnDoeID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JaneDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From Joe to John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JoeBloggsID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JoeBloggsID}}&to={{JohnDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JoeBloggsID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JohnDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Blank Message From Joe to John",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Sent Message from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are correct\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{from} = JSON.parse(pm.response.text())\r",
+							"    const{to} = JSON.parse(pm.response.text())\r",
+							"    console.log(\"FROMID \"+from.id)\r",
+							"    console.log(\"TOID \"+to.id)\r",
+							"\r",
+							"    pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JoeBloggsID\"));\r",
+							"    pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Message is not empty\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    const{message} = JSON.parse(pm.response.text())\r",
+							"    //console.log(message)\r",
+							"    pm.expect(message).to.not.equal(\"\")\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": {\n        \"id\": \"{{JoeBloggsID}}\"\n    },\n    \"to\": {\n        \"id\": \"{{JohnDoeID}}\"\n    },\n    \"message\": \"\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User John",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete John Doe\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('JohnDoeID',\"\");\r",
+							"console.log(pm.collectionVariables.get('JohnDoeID'));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users/:userId",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "{{JohnDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Jane",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete Jane Doe\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('JaneDoeID',\"\");\r",
+							"console.log(pm.collectionVariables.get('JaneDoeID'));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users/:userId",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "{{JaneDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete User Joe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete John Doe\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set('JoeBloggsID',\"\");\r",
+							"console.log(pm.collectionVariables.get('JoeBloggsID'));\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/users/:userId",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "{{JoeBloggsID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Messages From John to Jane",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let fromuserJohn = 0;\r",
+							"let fromuserJane = 0;\r",
+							"let fromuserJoe = 0;\r",
+							"let touserJohn = 0;\r",
+							"let touserJane = 0;\r",
+							"let touserJoe = 0;\r",
+							"\r",
+							"pm.test(\"List Messages from John to Jane\",function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check IDs are matching users on all messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        if (from.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            fromuserJohn = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            fromuserJane = 1;\r",
+							"        }else if(from.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            fromuserJoe = 1;\r",
+							"        }\r",
+							"\r",
+							"        if (to.id == pm.collectionVariables.get(\"JohnDoeID\")){\r",
+							"            console.log(\"johns id\"+from.id)\r",
+							"            touserJohn = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JaneDoeID\")){\r",
+							"            touserJane = 1;\r",
+							"        }else if(to.id == pm.collectionVariables.get(\"JoeBloggsID\")){\r",
+							"            touserJoe = 1;\r",
+							"        }\r",
+							"        pm.expect(from.id).to.equal(pm.collectionVariables.get(\"JohnDoeID\"));\r",
+							"        pm.expect(to.id).to.equal(pm.collectionVariables.get(\"JaneDoeID\"));\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is in fromId\",function(){\r",
+							"    pm.expect(fromuserJohn).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJane).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in fromId\",function(){\r",
+							"    pm.expect(fromuserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JohnDoeID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJohn).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JaneDoeID is in toId\",function(){\r",
+							"    pm.expect(touserJane).to.equal(1)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check that JoeBloggsID is NOT in toId\",function(){\r",
+							"    pm.expect(touserJoe).to.equal(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank messages\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{message} = response[i];\r",
+							"        pm.expect(message).to.not.equal(\"\");\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check for blank IDs\",function(){\r",
+							"    var response = JSON.parse(pm.response.text())\r",
+							"    \r",
+							"    for(var i=0; i< response.length; i++) {\r",
+							"        const{from} = response[i];\r",
+							"        const{to} = response[i];\r",
+							"        pm.expect(from.id).to.not.equal(\"\");\r",
+							"        pm.expect(to.id).to.not.equal(\"\");\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://perrys-summer-vacation.herokuapp.com/api/messages?from={{JohnDoeID}}&to={{JaneDoeID}}",
+					"protocol": "https",
+					"host": [
+						"perrys-summer-vacation",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"messages"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "{{JohnDoeID}}"
+						},
+						{
+							"key": "to",
+							"value": "{{JaneDoeID}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user1",
+			"value": "John Doe"
+		},
+		{
+			"key": "user2",
+			"value": "Jane Doe"
+		},
+		{
+			"key": "user3",
+			"value": "Joe Bloggs"
+		},
+		{
+			"key": "JohnDoeID",
+			"value": ""
+		},
+		{
+			"key": "JaneDoeID",
+			"value": ""
+		},
+		{
+			"key": "JoeBloggsID",
+			"value": ""
+		},
+		{
+			"key": "MessageID",
+			"value": "c238e811-39cd-4c1f-be90-89ace5ea5b8e"
+		}
+	]
+}
