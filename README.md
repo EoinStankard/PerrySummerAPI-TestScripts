@@ -26,6 +26,8 @@ All testing was done in postman, This was my first time using the environment so
 
 
 ### Test Scripts
+**Postman link to collection:** https://www.getpostman.com/collections/d071fe7e38f5b6324bcd
+
 All test scripts were exported from postman and are saved as the json file - "PerrysTestScripts.postman_collection.json"
 To run these test scripts import the above collection into postman and run the full collection
 
